@@ -1,0 +1,42 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
+
+#define TAMANHO_VETOR 6
+
+int numeroJaExiste(int vetor[], int tamanho, int numero) {
+    for (int i = 0; i < tamanho; i++) {
+        if (vetor[i] == numero) {
+            return 1; 
+        }
+    }
+    return 0; 
+}
+
+int main() {
+    int vetor[TAMANHO_VETOR];
+    int i, numero;
+    srand(time(NULL));
+    for (i = 0; i < TAMANHO_VETOR; i++) {
+        do {
+            numero = rand() % 49 + 1;
+        } while (numeroJaExiste(vetor, i, numero));
+        vetor[i] = numero;
+    }
+    for (i = 0; i < TAMANHO_VETOR - 1; i++) {
+        for (int j = 0; j < TAMANHO_VETOR - i - 1; j++) {
+            if (vetor[j] > vetor[j + 1]) {
+                int temp = vetor[j];
+                vetor[j] = vetor[j + 1];
+                vetor[j + 1] = temp;
+            }
+        }
+    }
+    printf("Números sorteados e ordenados:\n");
+    for (i = 0; i < TAMANHO_VETOR; i++) {
+        printf("%d ", vetor[i]);
+    }
+    printf("\n");
+
+    return 0;
+}
